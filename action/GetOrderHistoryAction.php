@@ -1,0 +1,56 @@
+<?php
+
+namespace allekurier\api_v1\action;
+
+use allekurier\api_v1\response\GetOrderHistoryResponse;
+use allekurier\api_v1\action\ActionInterface;
+
+/**
+ * @author it@allekurier.pl
+ */
+class GetOrderHistoryAction implements ActionInterface
+{
+	/**
+	 * @var string
+	 */
+	private $number;
+
+	public function __construct($number)
+	{
+		$this->number = $number;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function apiEndPoint()
+	{
+		return 'order_history';
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function httpMethod()
+	{
+		return ActionInterface::HTTP_METHOD_POST;
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function request()
+	{
+		return [
+			'number' => $this->number
+		];
+	}
+
+	/**
+	 * @return GetOrderHistoryResponse
+	 */
+	public function response(array $response)
+	{
+		return new GetOrderHistoryResponse($response);
+	}
+}

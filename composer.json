@@ -1,0 +1,14 @@
+{
+    "name": "allekurier/api_v1",
+    "description": "AlleKurier api",
+    "type": "library",
+    "authors": [
+        {
+            "name": "AlleKurier",
+            "email": "it@allekurier.pl"
+        }
+    ],
+    "require": {
+         "php": ">=5.4.0"
+    }
+}
