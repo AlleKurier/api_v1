@@ -3,28 +3,28 @@ AlleKurier API v1
 
 - [Wymagania](#wymagania)
 - [Instalacja](#instalacja)
-- [Użycie](#u-ycie)
+- [Użycie](#użycie)
     - [Przygotowanie API](#przygotowanie-api)
-    - [Utworzenie zamówienia](#utworzenie-zam-wienia)
-    - [Pobranie aktualnego statusu przesyłki](#pobranie-aktualnego-statusu-przesy-ki)
+    - [Utworzenie zamówienia](#utworzenie-zamówienia)
+    - [Pobranie aktualnego statusu przesyłki](#pobranie-aktualnego-statusu-przesyłki)
     - [Pobranie listu przewozowego](#pobranie-listu-przewozowego)
-    - [Pobranie historii przesyłki](#pobranie-historii-przesy-ki)
-    - [Anulowanie zamówienia](#anulowanie-zam-wienia)
-    - [Pobranie usług](#pobranie-us-ug)
+    - [Pobranie historii przesyłki](#pobranie-historii-przesyłki)
+    - [Anulowanie zamówienia](#anulowanie-zamówienia)
+    - [Pobranie usług](#pobranie-usług)
     - [Pobranie godzin odbioru](#pobranie-godzin-odbioru)
-    - [Pobranie punktów przewoźnika](#pobranie-punkt-w-przewo-nika)
+    - [Pobranie punktów przewoźnika](#pobranie-punktów-przewoźnika)
 - [Modele](#modele)
     - [Request](#request)
         - [Order](#order)
-        - [Sender / Recipient](#sender-s-recipient-r)
+        - [Sender / Recipient](#sender---s--recipient---r)
         - [Pickup](#pickup)
-        - [Package](#package-typ-opakowania-typ-opakowania-package-)
+        - [Package](#package-typ-opakowania)
     - [Response](#response)
         - [Service](#service)
         - [DropoffPoint](#dropoffpoint)
         - [PickupDate](#pickupdate)
         - [Event](#event)
-- [Słownik](#s-ownik)
+- [Słownik](#słownik)
 
 Wymagania
 ------------
@@ -325,7 +325,7 @@ Modele
 | Pole        | Opis                | Wymagane | Typ     | Opis                                                                                                          |
 | ----------- | ------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------- |
 | service     | Nazwa usługi        | tak      | string  | dpdclassic, dhlstandard, upsexpresssaver, upsstandard, kexstandard, inpostcourier, paczkawruchu               |
-| package     | Typ opakowania      | tak      | string  | [parcel, envelope, europallet, isopallet, bigpallet](#typ-opakowania-package)                                     |
+| package     | Typ opakowania      | tak      | string  | [parcel, envelope, europallet, isopallet, bigpallet](#typ-opakowania---package)                                     |
 | description | Opis przesyłki      | tak      | string  |                                                                                                               |
 | delivery    | Metoda odbioru      | tak      | string  | register - Zamawiam kuriera po odbiór przesyłki, <br/>  none - Dostarczę przesyłkę do punktu przewoźnika. |
 | cod         | Kwota pobrania      | nie      | float   |                                                                                                               |
