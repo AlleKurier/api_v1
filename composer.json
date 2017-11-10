@@ -1,6 +1,7 @@
 {
     "name": "allekurier/api_v1",
     "description": "AlleKurier api",
+    "license": "MIT",
     "type": "library",
     "authors": [
         {
