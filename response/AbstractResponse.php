@@ -17,7 +17,7 @@ abstract class AbstractResponse
 		$this->errors = $response['Error'];
 
 		if (!$this->hasErrors()) {
-			$this->readResponse($response['Response']);
+			$this->readApiResponse($response['Response']);
 		}
 	}
 
