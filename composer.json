@@ -3,6 +3,7 @@
     "description": "AlleKurier api",
     "license": "MIT",
     "type": "library",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "AlleKurier",
@@ -11,5 +12,8 @@
     ],
     "require": {
          "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {"allekurier\\api_v1": ""}
     }
 }
