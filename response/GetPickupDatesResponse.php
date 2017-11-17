@@ -3,7 +3,7 @@
 namespace allekurier\api_v1\response;
 
 use allekurier\api_v1\response\AbstractResponse;
-use  allekurier\api_v1\model\PickupDate;
+use allekurier\api_v1\model\PickupDate;
 
 /**
  * @author it@allekurier.pl

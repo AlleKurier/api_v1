@@ -40,13 +40,20 @@ class CreateOrderAction implements ActionInterface
 	 */
 	private $pickup;
 
+	/**
+	 * @var array
+	 */
+	private $additionalServices = [];
+
 	public function __construct(
 		Order $order,
 		Sender $sender,
 		Recipient $recipient,
 		Packages $packages,
-		Pickup $pickup = null
+		Pickup $pickup = null,
+		array $additionalServices = []
 	) {
+		$this->additionalServices = $additionalServices;
 		$this->recipient = $recipient;
 		$this->packages  = $packages;
 		$this->sender    = $sender;
@@ -123,7 +130,8 @@ class CreateOrderAction implements ActionInterface
 				'dropoff_point' => $recipient->dropoffPoint()
 			],
 			'Pickup'   => $pickup,
-			'Packages' => $this->packages->toArray()
+			'Packages' => $this->packages->toArray(),
+			'Services' => $this->additionalServices
 		];
 	}
 

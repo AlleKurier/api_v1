@@ -11,7 +11,7 @@ use allekurier\api_v1\vendor\Curl;
  *
  * @author it@allekurier.pl
  * @see https://github.com/AlleKurier/api_v1
- * @version 1.0.0
+ * @version 1.1.0
  */
 class AKAPI
 {

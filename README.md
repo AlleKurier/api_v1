@@ -11,6 +11,7 @@ AlleKurier API v1
     - [Pobranie historii przesyłki](#pobranie-historii-przesyłki)
     - [Anulowanie zamówienia](#anulowanie-zamówienia)
     - [Pobranie usług](#pobranie-usług)
+    - [Pobranie dodatkowych usług](#pobranie-dodatkowych-usług)
     - [Pobranie godzin odbioru](#pobranie-godzin-odbioru)
     - [Pobranie punktów przewoźnika](#pobranie-punktów-przewoźnika)
 - [Modele](#modele)
@@ -115,12 +116,18 @@ $packages = new allekurier\api_v1\model\Packages([
     new allekurier\api_v1\model\Package('waga', 'szerokość', 'wysokość', 'długość', 'czy standardowa')
 ]);
 
+$additionalServices = [
+    'sms',
+    'email_notif_delivered'
+];
+
 $action = new allekurier\api_v1\action\CreateOrderAction(
     $order,
     $sender,
     $recipient,
     $packages,
-    $pickup
+    $pickup,
+    $additionalServices
 );
 
 $response = $api->call($action);
@@ -134,6 +141,66 @@ if ($response->hasErrors()) {
     echo $response->status();
 }
 
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/order_create \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &Order%5Bpackage%5D=*typ_opakowania*
+      &Order%5Bcod%5D=*kwota_pobrania*
+      &Order%5Binsurance%5D=*kwota_ubezpieczenia*
+      &Order%5Bdelivery%5D=*metoda_odbioru*
+      &Order%5Bservice%5D=*nazwa_uslugi*
+      &Order%5Bdescription%5D=*opis_przesylki*
+      &Order%5Bvalue%5D=*wartosc_towaru*
+      &Sender%5Bcountry%5D=*kod_kraju*
+      &Sender%5Bphone%5D=*telefon*
+      &Sender%5Baddress%5D=*adres*
+      &Sender%5Bpostal_code%5D=*kod_pocztowy*
+      &Sender%5Bperson%5D=*osoba_kontaktowa*
+      &Sender%5Bcity%5D=*miasto*
+      &Sender%5Bemail%5D=*email*
+      &Sender%5Bname%5D=*nadawca*
+      &Sender%5Bbank_account%5D=*numer_banku_do_zwrotu_pobrania*
+      &Sender%5Bdropoff_point%5D=*kod_punktu_przewoznika*
+      &Recipient%5Bcountry%5D=*kod_kraju*
+      &Recipient%5Bpostal_code%5D=*kod_pocztowy*
+      &Recipient%5Bphone%5D=*telefon*
+      &Recipient%5Bcity%5D=*miasto*
+      &Recipient%5Bname%5D=*odbiorca*
+      &Recipient%5Bperson%5D=*osoba_kontaktowa*
+      &Recipient%5Baddress%5D=*adres*
+      &Recipient%5Bemail%5D=*email*
+      &Package%5B0%5D%5Bweight%5D=*waga_paczki*
+      &Package%5B0%5D%5Bheight%5D=*wysokosc_paczki*
+      &Package%5B0%5D%5Bwidth%5D=*szerokosc_paczki*
+      &Package%5B0%5D%5Blength%5D=*dlugosc_paczki*
+      &Package%5B0%5D%5Bcustom%5D=*czy_standardowa*
+      &Pickup%5Bdate%5D=*data*
+      &Pickup%5Bfrom%5D=*od_godz*
+      &Pickup%5Bto%5D=*do_godz*
+      &Services%5B0%5D=*nazwa_uslugi*'
+```
+
+###### Response:
+
+```json
+{
+    "Error":[],
+    "Response":{
+        "hid":"",
+        "number":null,
+        "cost":"12.76",
+        "status":"processing"
+    }
+}
 ```
 
 ### Pobranie aktualnego statusu przesyłki
@@ -155,6 +222,42 @@ if ($response->hasErrors()) {
 }
 ```
 
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/order_status \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &hid=*hid*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": {
+        "Order": {
+            "hid": "",
+            "number": null,
+            "created": "2017-11-16 13:39:58",
+            "sent": null,
+            "delivered": null,
+            "status": "canceled"
+        },
+        "Event": {
+            "date": "2017-11-16 13:41:06",
+            "status": "canceled",
+            "name": "Anulowane"
+        }
+    }
+}
+```
+
 ### Pobranie listu przewozowego
 
 Pobieranie dokumentów do wydruku. Funkcja zwraca zakodowany (base64) pdf z listami przewozowymi.
@@ -170,6 +273,35 @@ if ($response->hasErrors()) {
     var_dump($response->getErrors());
 } else {
     file_put_contents('my_path/label.pdf', $response->label());
+}
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/order_label \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &number=*numer_przesylki*'
+```
+
+###### Response:
+
+```json
+{
+    "Error":[],
+    "Response":{
+        "Order":{
+            "hid":"",
+            "number":"",
+            "status":"ready"
+        },
+        "label":""
+    }
 }
 ```
 
@@ -195,6 +327,44 @@ if ($response->hasErrors()) {
 }
 ```
 
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/order_history \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &number=*numer_przesylki*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": {
+        "Order": {
+            "hid": "",
+            "number": "",
+            "created": "2017-11-14 11:49:11",
+            "sent": null,
+            "delivered": null
+        },
+        "Event": [
+            {
+                "date": "2017-11-14 11:49:11",
+                "status": "created",
+                "name": "Zlecenie utworzone"
+            },
+            ...
+        ]
+    }
+}
+```
+
 ### Anulowanie zamówienia
 
 Anulowanie zlecenia na podstawie numeru. Listy przewozowe UPS należy bezwzględnie anulować,
@@ -212,6 +382,30 @@ if ($response->hasErrors()) {
 } else {
     if ($response->isCanceled()) {
         echo 'Anulowane';
+    }
+}
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/order_cancel \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &number=*numer_przesylki*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": {
+        "status": 1
     }
 }
 ```
@@ -261,6 +455,60 @@ if ($response->hasErrors()) {
 
 ```
 
+### Pobranie dodatkowych usług
+
+Metoda zwraca dostępne dodatkowe usługi danej usługi wraz z kwotami dla podanych danych.
+Zwraca tablicę usług dodatkowych [AdditionalService](#additionalservice)
+
+```php
+$action = new allekurier\api_v1\action\GetAdditionalServicesAction('nazwa uslugi', 'typ opakowania');
+
+$response = $api->call($action);
+
+if ($response->hasErrors()) {
+    var_dump($response->getErrors());
+} else {
+    foreach ($response->services() as $service) {
+        echo $service->code();
+        echo $service->name();
+        echo $service->net();
+    }
+}
+
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/additional_services \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &service=*kod_uslugi*
+      &package=*typ_opakowania*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": {
+        "cod_instant": {
+            "name": "Pobranie Natychmiastowe (1 dzień)",
+            "price": "2.00"
+        },
+        "rod": {
+            "name": "Zwrot dokumentów",
+            "price": "13.00"
+        }
+    }
+}
+```
+
 ### Pobranie godzin odbioru
 
 Metoda zwraca możliwe godziny odbioru przesyłki przez danego przewoźnika dla zadanego kodu pocztowego.
@@ -284,6 +532,50 @@ if ($response->hasErrors()) {
     }
 }
 
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/pickup_dates \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &carrier=*przewoznik*
+      &postal_code=*kod_pocztowy*
+      &country=*kod_kraju*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": [
+        {
+            "date": "2017-11-16",
+            "description": "Dzisiaj",
+            "from": {
+                "41400": "11:30",
+                "43200": "12:00"
+            },
+            "to": {
+                "57600": "16:00"
+            },
+            "to_minima": {
+                "41400": 57600,
+                "43200": 57600
+            },
+            "call_to": 43200,
+            "class": "todayPickupDate",
+            "call_to_formatted": "12:00"
+        },
+        ...
+    ]
+}
 ```
 
 ### Pobranie punktów przewoźnika
@@ -315,6 +607,57 @@ if ($response->hasErrors()) {
 
 ```
 
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/access_points \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*
+      &carrier=*przewoznik*
+      &postal_code=*kod_pocztowy*'
+```
+
+###### Response:
+
+```json
+{
+    "Error":[],
+    "Response":{
+        "Coordinates":{
+            "longitude":"",
+            "latitude":""
+        },
+        "AccessPoints":[
+            {
+                "AccessPoints":{
+                    "id":"",
+                    "latitude":"",
+                    "longitude":"",
+                    "code":"",
+                    "name":"",
+                    "address":"",
+                    "address2":null,
+                    "postal_code":"",
+                    "city":"",
+                    "image_url":null,
+                    "open_hours":null,
+                    "cod":"0"
+                },
+                "0":{
+                    "diff":""
+                }
+            },
+            ...
+        ]
+    }
+}
+
+```
+
 Modele
 -----
 
@@ -335,22 +678,22 @@ Modele
 
 ##### Sender - S / Recipient - R
 
-| Pole          | Opis                  | Model | Wymagane | Typ    | Opis                                                                 |
-| ------------- | --------------------- | ------| -------- | ------ | -------------------------------------------------------------------- |
-| name          | Odbiorca / Nadawca    | S & R | tak      | string | imię nazwisko / nazwa firmy                                          |
-| person        | Osoba kontaktowa      | S & R | tak      | string | imię nazwisko osoby kontakowej                                       |
-| postal_code   | Kod pocztowy          | S & R | tak      | string |                                                                      |
-| address       | Adres                 | S & R | tak      | string | ulica, numer domu / mieszkania                                       |
-| city          | Miasto                | S & R | tak      | string |                                                                      |
-| phone         | Telefon               | S & R | tak      | string |                                                                      |
-| email         | Email                 | S & R | tak      | string |                                                                      |
-| country       | Kod kraju             | S & R | tak      | string | [ISO 3166-1 alfa-2](https://pl.wikipedia.org/wiki/ISO_3166-1_alfa-2) |
-| dropoff_point | Kod punktuprzewoźnika | S & R | nie      | string | [Punkty przewoźników](https://allekurier.pl/punkty-odbioru)          |
-| bank_account  | Numer konta bankowego | S     | nie      | string | wymagane gdy podano Order.cod                                        |
+| Pole          | Opis                   | Model | Wymagane | Typ    | Opis                                                                 |
+| ------------- | ---------------------- | ------| -------- | ------ | -------------------------------------------------------------------- |
+| name          | Odbiorca / Nadawca     | S & R | tak      | string | imię nazwisko / nazwa firmy                                          |
+| person        | Osoba kontaktowa       | S & R | tak      | string | imię nazwisko osoby kontakowej                                       |
+| postal_code   | Kod pocztowy           | S & R | tak      | string |                                                                      |
+| address       | Adres                  | S & R | tak      | string | ulica, numer domu / mieszkania                                       |
+| city          | Miasto                 | S & R | tak      | string |                                                                      |
+| phone         | Telefon                | S & R | tak      | string |                                                                      |
+| email         | Email                  | S & R | tak      | string |                                                                      |
+| country       | Kod kraju              | S & R | tak      | string | [ISO 3166-1 alfa-2](https://pl.wikipedia.org/wiki/ISO_3166-1_alfa-2) |
+| dropoff_point | Kod punktu przewoźnika | S & R | nie      | string | [Punkty przewoźników](https://allekurier.pl/punkty-odbioru)          |
+| bank_account  | Numer konta bankowego  | S     | nie      | string | wymagane gdy podano Order.cod                                        |
 
 ##### Pickup
 
-| Pole | Opis         | Wymagane | Typ    | Przykłady         |
+| Pole | Opis         | Wymagane | Typ    | Przykład          |
 | -----| ------------ | -------- | ------ | ----------------- |
 | date | Data         | tak      | string | 2017-01-20        |
 | from | Od godz      | tak      | string | 12:00:00          |
@@ -380,6 +723,14 @@ Modele
 | name        | Nazwa usługi      | string   |
 | net         | Koszt netto       | float    |
 | gross       | Koszt brutto      | float    |
+
+##### AdditionalService
+
+| Pole        | Opis              | Typ      |
+| ----------- | ----------------- | -------- |
+| code        | Kod usługi        | string   |
+| name        | Nazwa usługi      | string   |
+| net         | Koszt netto       | float    |
 
 ##### DropoffPoint
 
