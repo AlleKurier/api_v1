@@ -74,11 +74,13 @@ class Order
 		$this->cod		   = $cod;
 	}
 
-	/**
-	 * @param string $package
-	 * @param float $cod
-	 * @param float $insurance
-	 */
+    /**
+     * @param string $package
+     * @param float  $cod
+     * @param float  $insurance
+     *
+     * @return Order
+     */
 	public static function createForPricing($package, $cod = null, $insurance = null)
 	{
 		return new static(null, $package, null, null, $cod, $insurance);

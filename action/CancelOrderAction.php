@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\CancelOrderResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author it@allekurier.pl
@@ -46,9 +45,11 @@ class CancelOrderAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return CancelOrderResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return CancelOrderResponse
+     */
 	public function response(array $response)
 	{
 		return new CancelOrderResponse($response);

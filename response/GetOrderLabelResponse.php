@@ -2,8 +2,6 @@
 
 namespace allekurier\api_v1\response;
 
-use allekurier\api_v1\response\AbstractResponse;
-
 /**
  * @author it@allekurier.pl
  */
@@ -25,7 +23,7 @@ class GetOrderLabelResponse extends AbstractResponse
 	/**
 	 * {@inheritdoc}
 	 *
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	protected function readApiResponse(array $response)
 	{

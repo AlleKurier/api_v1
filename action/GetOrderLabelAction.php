@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\GetOrderLabelResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author it@allekurier.pl
@@ -46,9 +45,11 @@ class GetOrderLabelAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return GetOrderLabelResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return GetOrderLabelResponse
+     */
 	public function response(array $response)
 	{
 		return new GetOrderLabelResponse($response);

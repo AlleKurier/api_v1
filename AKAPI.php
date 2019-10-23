@@ -3,7 +3,7 @@
 namespace allekurier\api_v1;
 
 use allekurier\api_v1\action\ActionInterface;
-use allekurier\api_v1\Credentials;
+use allekurier\api_v1\response\AbstractResponse;
 use allekurier\api_v1\vendor\Curl;
 
 /**
@@ -11,7 +11,7 @@ use allekurier\api_v1\vendor\Curl;
  *
  * @author it@allekurier.pl
  * @see https://github.com/AlleKurier/api_v1
- * @version 1.1.0
+ * @version 1.2.0
  */
 class AKAPI
 {
@@ -40,10 +40,10 @@ class AKAPI
 	 * Call action request to api
 	 *
 	 * @param ActionInterface $action
+     *
 	 * @return AbstractResponse
 	 *
 	 * @throws \Exception
-	 * @throws \InvalidArgumentException
 	 */
 	public function call(ActionInterface $action)
 	{

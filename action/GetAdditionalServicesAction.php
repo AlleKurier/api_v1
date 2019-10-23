@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\GetAdditionalServicesResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author it@allekurier.pl
@@ -53,9 +52,11 @@ class GetAdditionalServicesAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return GetAdditionalServicesResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return GetAdditionalServicesResponse
+     */
 	public function response(array $response)
 	{
 		return new GetAdditionalServicesResponse($response);

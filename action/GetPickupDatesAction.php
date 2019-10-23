@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\GetPickupDatesResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author it@allekurier.pl
@@ -60,9 +59,11 @@ class GetPickupDatesAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return GetPickupDatesResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return GetPickupDatesResponse
+     */
 	public function response(array $response)
 	{
 		return new GetPickupDatesResponse($response);

@@ -2,6 +2,8 @@
 
 namespace allekurier\api_v1\action;
 
+use allekurier\api_v1\response\AbstractResponse;
+
 /**
  * @author it@allekurier.pl
  */
@@ -21,6 +23,7 @@ interface ActionInterface
 	 * Return action response
 	 *
 	 * @param array $response
+     *
 	 * @return AbstractResponse
 	 */
 	public function response(array $response);

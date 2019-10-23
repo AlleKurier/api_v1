@@ -31,6 +31,7 @@ Wymagania
 ------------
 
   * PHP 5.4.0 lub wyższy;
+  * ext-json;
   * ext-curl;
 
 
@@ -59,7 +60,6 @@ Użycie
 ```php
 $credentials = new allekurier\api_v1\Credentials('login', 'hasło');
 $api = new allekurier\api_v1\AKAPI($credentials);
-
 ```
 
 ### Utworzenie zamówienia
@@ -140,7 +140,6 @@ if ($response->hasErrors()) {
     echo $response->cost();
     echo $response->status();
 }
-
 ```
 
 ##### cURL:
@@ -452,7 +451,6 @@ if ($response->hasErrors()) {
         echo $service->gross();
     }
 }
-
 ```
 
 ### Pobranie dodatkowych usług
@@ -474,7 +472,6 @@ if ($response->hasErrors()) {
         echo $service->net();
     }
 }
-
 ```
 
 ##### cURL:
@@ -531,7 +528,6 @@ if ($response->hasErrors()) {
         var_dump($date->to());
     }
 }
-
 ```
 
 ##### cURL:
@@ -604,7 +600,6 @@ if ($response->hasErrors()) {
         echo $point->isSupportCod();
     }
 }
-
 ```
 
 ##### cURL:
@@ -655,7 +650,51 @@ curl -X POST \
         ]
     }
 }
+```
 
+### Pobranie środków użytkownika
+
+Metoda zwraca stan konta użytkownika
+
+```php
+$action = new allekurier\api_v1\action\GetUserBalanceAction;
+
+$response = $api->call($action);
+
+if ($response->hasErrors()) {
+    var_dump($response->getErrors());
+} else {
+    echo $response->balance();
+}
+```
+
+##### cURL:
+
+```bash
+curl -X POST \
+  https://allekurier.pl/api_v1/user_balance \
+  -H 'accept: application/json' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/x-www-form-urlencoded' \
+  -d 'User%5Bemail%5D=*email*
+      &User%5Bpassword%5D=*haslo*'
+```
+
+###### Response:
+
+```json
+{
+    "Error": [],
+    "Response": [
+        {
+            "User": {
+                "hid": "XXXXXX",
+                "balance": "0.00",
+                "free": "0.00"
+            }
+        }
+    ]
+}
 ```
 
 Modele

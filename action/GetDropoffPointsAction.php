@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\GetDropoffPointsResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author ita@allekurier.pl
@@ -53,9 +52,11 @@ class GetDropoffPointsAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return GetDropoffPointsResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return GetDropoffPointsResponse
+     */
 	public function response(array $response)
 	{
 		return new GetDropoffPointsResponse($response);

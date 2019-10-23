@@ -74,10 +74,12 @@ abstract class AbstractIdentity
 		$this->city			= $city;
 	}
 
-	/**
-	 * @param string $country
-	 * @param string $postalCode
-	 */
+    /**
+     * @param string $country
+     * @param string $postalCode
+     *
+     * @return AbstractIdentity
+     */
 	public static function createForPricing($country, $postalCode = null)
 	{
 		return new static(null, null, $postalCode, null, null, null, null, $country);

@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\CreateOrderResponse;
-use allekurier\api_v1\action\ActionInterface;
 use allekurier\api_v1\model\Recipient;
 use allekurier\api_v1\model\Packages;
 use allekurier\api_v1\model\Sender;
@@ -135,9 +134,11 @@ class CreateOrderAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return CreateOrderResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return CreateOrderResponse
+     */
 	public function response(array $response)
 	{
 		return new CreateOrderResponse($response);

@@ -2,8 +2,6 @@
 
 namespace allekurier\api_v1\model;
 
-use allekurier\api_v1\model\Package;
-
 /**
  * @author it@allekurier.pl
  */

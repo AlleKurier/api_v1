@@ -2,8 +2,6 @@
 
 namespace allekurier\api_v1\response;
 
-use allekurier\api_v1\response\AbstractResponse;
-
 /**
  * @author it@allekurier.pl
  */

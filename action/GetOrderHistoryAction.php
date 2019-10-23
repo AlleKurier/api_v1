@@ -3,7 +3,6 @@
 namespace allekurier\api_v1\action;
 
 use allekurier\api_v1\response\GetOrderHistoryResponse;
-use allekurier\api_v1\action\ActionInterface;
 
 /**
  * @author it@allekurier.pl
@@ -46,9 +45,11 @@ class GetOrderHistoryAction implements ActionInterface
 		];
 	}
 
-	/**
-	 * @return GetOrderHistoryResponse
-	 */
+    /**
+     * @param array $response
+     *
+     * @return GetOrderHistoryResponse
+     */
 	public function response(array $response)
 	{
 		return new GetOrderHistoryResponse($response);
