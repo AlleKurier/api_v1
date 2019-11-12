@@ -44,9 +44,9 @@ class GetOrderStatusResponse extends AbstractResponse
 	protected function readApiResponse(array $response)
 	{
 		$this->event = new Event(
-			$response['name'],
-			$response['date'],
-			$response['status']
+			$response['Event']['name'],
+			$response['Event']['date'],
+			$response['Event']['status']
 		);
 	}
 }
