@@ -14,9 +14,15 @@ class GetOrderLabelAction implements ActionInterface
 	 */
 	private $number;
 
-	public function __construct($number)
+    /**
+     * @var bool
+     */
+    private $getSmallLabel;
+
+	public function __construct($number, $getSmallLabel = false)
 	{
 		$this->number = $number;
+        $this->getSmallLabel = $getSmallLabel;
 	}
 
 	/**
@@ -41,7 +47,8 @@ class GetOrderLabelAction implements ActionInterface
 	public function request()
 	{
 		return [
-			'number' => $this->number
+			'number'        => $this->number,
+            'getSmallLabel' => $this->getSmallLabel
 		];
 	}
 
