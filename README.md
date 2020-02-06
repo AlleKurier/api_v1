@@ -264,7 +264,10 @@ W przypadku DPD domyślnie zwracany jest protokół przekazania towaru.
 Dokumenty można drukować tylko gdy status zlecenia ustawiony jest na ready.
 
 ```php
-$action = new allekurier\api_v1\action\GetOrderLabelAction('numer przesyłki');
+$action = new allekurier\api_v1\action\GetOrderLabelAction(
+    'numer przesyłki', 
+    'czy pobierać małe etykiety?' // true/false (parametr opcjonalny)
+);
 
 $response = $api->call($action);
 
