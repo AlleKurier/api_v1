@@ -126,7 +126,8 @@ class CreateOrderAction implements ActionInterface
 				'country'		=> $recipient->country(),
 				'phone'			=> $recipient->phone(),
 				'email'			=> $recipient->email(),
-				'dropoff_point' => $recipient->dropoffPoint()
+				'dropoff_point' => $recipient->dropoffPoint(),
+				'state'         => $recipient->state()
 			],
 			'Pickup'   => $pickup,
 			'Packages' => $this->packages->toArray(),

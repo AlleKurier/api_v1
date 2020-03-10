@@ -102,7 +102,8 @@ $recipient = new allekurier\api_v1\model\Recipient(
     'telefon',
     'email',
     'kod państwa',
-    'punkt przewoźnika'
+    'punkt przewoźnika',
+    'kod stanu'
 );
 
 // Wymagany gdy Order - metoda odbioru = register
@@ -732,6 +733,7 @@ Modele
 | country       | Kod kraju              | S & R | tak      | string | [ISO 3166-1 alfa-2](https://pl.wikipedia.org/wiki/ISO_3166-1_alfa-2) |
 | dropoff_point | Kod punktu przewoźnika | S & R | nie      | string | [Punkty przewoźników](https://allekurier.pl/punkty-odbioru)          |
 | bank_account  | Numer konta bankowego  | S     | nie      | string | wymagane gdy podano Order.cod                                        |
+| state         | Kod stanu              | R     | nie      | string | wymagane dla USA i Kanady                                            |
 
 ##### Pickup
 
