@@ -103,7 +103,8 @@ class CreateOrderAction implements ActionInterface
 				'voucher'     => $order->voucher(),
 				'delivery'    => $order->delivery(),
 				'value'       => $order->value(),
-				'package'     => $order->package()
+				'package'     => $order->package(),
+				'reference'   => $order->reference()
 			],
 			'Sender' => [
 				'name'			=> $sender->name(),

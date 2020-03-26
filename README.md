@@ -76,6 +76,7 @@ $order = new allekurier\api_v1\model\Order(
     'metoda odbioru',
     'kwota pobrania',
     'kwota ubezpieczenia',
+    'numer referencyjny',
     'wartość towaru',
     'voucher'
 );
@@ -716,6 +717,7 @@ Modele
 | delivery    | Metoda odbioru      | tak      | string  | register - Zamawiam kuriera po odbiór przesyłki, <br/>  none - Dostarczę przesyłkę do punktu przewoźnika. |
 | cod         | Kwota pobrania      | nie      | float   |                                                                                                               |
 | insurance   | Kwota ubezpieczenia | nie      | float   |                                                                                                               |
+| reference   | Numer referencyjny  | nie      | string  | np. numer faktury, zamówienia                                                                                 |
 | value       | Wartość towaru      | nie      | float   | Wymagane przy przesyłkach poza Unię Europejską                                                                |
 | voucher     | Kod vouchera        | nie      | string  | &nbsp;                                                                                                        |
 
