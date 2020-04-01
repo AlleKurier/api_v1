@@ -217,6 +217,11 @@ $response = $api->call($action);
 if ($response->hasErrors()) {
     var_dump($response->getErrors());
 } else {
+    echo $response->hid();
+    echo $response->number();
+    echo $response->created();
+    echo $response->sent();
+    echo $response->delivered();
     echo $response->date();
     echo $response->name();
     echo $response->status();
