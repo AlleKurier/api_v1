@@ -207,7 +207,7 @@ curl -X POST \
 ### Pobranie aktualnego statusu przesyłki
 
 Zwraca podstawowe informacja o zleceniu na podstawie jego numeru.
-Służy do pobierania ostatniego zdarzenia z historii zlecenia (statusu), numeru, oraz dat (utworzenie, nadanie, doręczenie).
+Służy do pobierania ostatniego zdarzenia z historii zlecenia (statusu), numeru przesyłki i śledzenia, oraz dat (utworzenie, nadanie, doręczenie).
 
 ```php
 $action = new allekurier\api_v1\action\GetOrderStatusAction('hid przesyłki');
@@ -219,6 +219,7 @@ if ($response->hasErrors()) {
 } else {
     echo $response->hid();
     echo $response->number();
+    echo $response->traceNumber();
     echo $response->created();
     echo $response->sent();
     echo $response->delivered();
@@ -250,6 +251,7 @@ curl -X POST \
         "Order": {
             "hid": "",
             "number": null,
+            "trace_number": null,
             "created": "2017-11-16 13:39:58",
             "sent": null,
             "delivered": null,

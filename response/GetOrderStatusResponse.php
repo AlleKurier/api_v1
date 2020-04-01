@@ -20,6 +20,11 @@ class GetOrderStatusResponse extends AbstractResponse
     private $number;
 
     /**
+     * @var string|null
+     */
+    private $traceNumber;
+
+    /**
      * @var string
      */
     private $created;
@@ -53,6 +58,14 @@ class GetOrderStatusResponse extends AbstractResponse
     public function number()
     {
         return $this->number;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function traceNumber()
+    {
+        return $this->traceNumber;
     }
 
     /**
@@ -110,6 +123,7 @@ class GetOrderStatusResponse extends AbstractResponse
 	{
         $this->hid = $response['Order']['hid'];
         $this->number = $response['Order']['number'] ? $response['Order']['number'] : null;
+        $this->traceNumber = $response['Order']['trace_number'] ? $response['Order']['trace_number'] : null;
         $this->created = $response['Order']['created'];
         $this->sent = $response['Order']['sent'] ? $response['Order']['sent'] : null;
         $this->delivered = $response['Order']['delivered'] ? $response['Order']['delivered'] : null;
