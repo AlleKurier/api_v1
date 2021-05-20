@@ -179,11 +179,11 @@ curl -X POST \
       &Recipient%5Bperson%5D=*osoba_kontaktowa*
       &Recipient%5Baddress%5D=*adres*
       &Recipient%5Bemail%5D=*email*
-      &Package%5B0%5D%5Bweight%5D=*waga_paczki*
-      &Package%5B0%5D%5Bheight%5D=*wysokosc_paczki*
-      &Package%5B0%5D%5Bwidth%5D=*szerokosc_paczki*
-      &Package%5B0%5D%5Blength%5D=*dlugosc_paczki*
-      &Package%5B0%5D%5Bcustom%5D=*czy_standardowa*
+      &Packages%5B0%5D%5Bweight%5D=*waga_paczki*
+      &Packages%5B0%5D%5Bheight%5D=*wysokosc_paczki*
+      &Packages%5B0%5D%5Bwidth%5D=*szerokosc_paczki*
+      &Packages%5B0%5D%5Blength%5D=*dlugosc_paczki*
+      &Packages%5B0%5D%5Bcustom%5D=*czy_standardowa*
       &Pickup%5Bdate%5D=*data*
       &Pickup%5Bfrom%5D=*od_godz*
       &Pickup%5Bto%5D=*do_godz*
